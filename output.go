@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/getsentry/raven-go"
-	"github.com/Ak-Army/xlog"
+	"github.com/rs/xlog"
 )
 
 type locationer interface {
