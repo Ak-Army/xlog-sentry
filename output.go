@@ -205,7 +205,12 @@ func (o Output) mapFieldsToPacket(fields map[string]interface{}, packet *raven.P
 	stConfig := o.StacktraceConfiguration
 	if stConfig.Enable && level <= stConfig.Level {
 		currentStacktrace := raven.NewStacktrace(stConfig.Skip, stConfig.Context, stConfig.InAppPrefixes)
-		packet.Interfaces = append(packet.Interfaces, currentStacktrace)
+		if currentStacktrace==nil {
+			currentStacktrace = raven.NewStacktrace(0, stConfig.Context, stConfig.InAppPrefixes)
+		}
+		if currentStacktrace != nil {
+			packet.Interfaces = append(packet.Interfaces, currentStacktrace)
+		}
 	}
 	return fields
 }
