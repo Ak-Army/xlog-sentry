@@ -148,12 +148,17 @@ func (o Output) getPacket(fields map[string]interface{}) *raven.Packet {
 	packet.Level = severityMap[level]
 	packet.Logger = "xlog"
 
-	fields = o.mapFieldsToPacket(fields, packet)
-	fields = o.addDefaultFields(fields)
-	fields = o.mapFieldsToTag(fields, packet)
-	fields = o.cleanFields(fields)
+	fieldsCopy := make(map[string]interface{})
+	for k, v := range fields {
+		fieldsCopy[k] = v
+	}
 
-	packet.Extra = fields
+	fieldsCopy = o.mapFieldsToPacket(fieldsCopy, packet)
+	fieldsCopy = o.addDefaultFields(fieldsCopy)
+	fieldsCopy = o.mapFieldsToTag(fieldsCopy, packet)
+	fieldsCopy = o.cleanFields(fieldsCopy)
+
+	packet.Extra = fieldsCopy
 
 	return packet
 }
