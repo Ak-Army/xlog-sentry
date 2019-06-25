@@ -25,6 +25,7 @@ var (
 		"info":  xlog.LevelInfo,
 		"warn":  xlog.LevelWarn,
 		"error": xlog.LevelError,
+		"fatal": xlog.LevelFatal,
 	}
 
 	severityMap = map[xlog.Level]raven.Severity{
@@ -32,6 +33,7 @@ var (
 		xlog.LevelInfo:  raven.INFO,
 		xlog.LevelWarn:  raven.WARNING,
 		xlog.LevelError: raven.ERROR,
+		xlog.LevelFatal: raven.FATAL,
 	}
 )
 
